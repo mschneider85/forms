@@ -1,0 +1,12 @@
+.modal-content#form
+  .modal-header
+    %h5.modal-title= @form.persisted? ? @form.name : 'New Form'
+    %button.close{ type: 'button', data: { dismiss: 'modal' } }
+      %span ×
+  = bootstrap_form_for @form, remote: true do |f|
+    .modal-body
+      = f.text_field :name, autocomplete: :off, data: { slug: 'slug' }
+      = f.text_field :slug, autocomplete: :off, readonly: true, id: 'slug'
+    .modal-footer
+      = f.button t('helpers.cancel'), class: 'btn btn-secondary', type: 'button', data: { dismiss: 'modal' }
+      = f.submit class: 'btn btn-primary'

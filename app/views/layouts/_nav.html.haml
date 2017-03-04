@@ -1,0 +1,11 @@
+%nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.sticky-top
+  %button.navbar-toggler.navbar-toggler-right{ type: 'button', data: { target: '#navbar', toggle: 'collapse'  } }
+    %span.navbar-toggler-icon
+  = link_to '#', class: 'navbar-brand' do
+    Navbar
+  #navbar.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item{ class: ('active' if controller_name == 'sites') }
+        = link_to 'Home', root_path, class: 'nav-link'
+      %li.nav-item{ class: ('active' if controller_name == 'forms') }
+        = link_to 'Forms', forms_path, class: 'nav-link'

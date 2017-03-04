@@ -1,0 +1,16 @@
+#modal.modal.fade{ role: 'dialog', tabindex: '-1' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title Modal title
+        %button.close{ type: 'button' }
+          %span ×
+      .modal-body
+        = bootstrap_form_for @form do |f|
+          = f.text_field :name, autocomplete: :off, data: { slug: 'slug' }
+          = f.text_field :slug, autocomplete: :off, readonly: true, id: 'slug'
+          = link_to t('helpers.cancel'), forms_path, class: 'btn btn-secondary'
+          = f.submit class: 'btn btn-primary'
+      .modal-footer
+        %button.btn.btn-secondary{ 'data-dismiss' => 'modal', type: "button" } Close
+        %button.btn.btn-primary{ type: 'button' } Save changes

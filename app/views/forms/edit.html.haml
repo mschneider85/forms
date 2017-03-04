@@ -1,0 +1,41 @@
+#toolbar
+  // Text Input
+  .row
+    .col
+      .form-group
+        %label{ contenteditable: true, data: { default: 'Text Input' } } Text input
+        %input.form-control{ type: 'text' }
+  // Textarea
+  .row
+    .col
+      .form-group
+        %label{ contenteditable: true, data: { default: 'Textarea' } } Textarea
+        %textarea.form-control{ type: 'textarea', rows: '3' }
+  // Single Checkbox
+  .row
+    .col
+      %label.custom-control.custom-checkbox
+        %input.custom-control-input{ type: 'checkbox' }
+        %span.custom-control-indicator
+        %span.custom-control-description{ contenteditable: true, data: { default: 'Checkbox' } } Checkbox
+#form{ data: { slug: @form.slug } }
+  .row
+  - @form.structure.sort_by(&:first).each do |row, cols|
+    .row
+      - cols.sort_by{ |col| col[:col_index] }.each do |col|
+        .col
+          - case col[:type]
+          - when 'text'
+            .form-group
+              %label{ contenteditable: true, data: { default: 'Text Input' } }= col[:label]
+              %input.form-control{ type: 'text' }
+          - when 'textarea'
+            .form-group
+              %label{ contenteditable: true, data: { default: 'Textarea' } }= col[:label]
+              %textarea.form-control{ type: 'textarea', rows: '3' }
+          - when 'checkbox'
+            %label.custom-control.custom-checkbox
+              %input.custom-control-input{ type: 'checkbox', checked: col[:checked] }
+              %span.custom-control-indicator
+              %span.custom-control-description{ contenteditable: true, data: { default: 'Checkbox' } }= col[:label]
+  .row

@@ -1,0 +1,7 @@
+%h1 Forms
+= link_to 'new', new_form_path, class: 'btn btn-secondary', remote: true, data: { target: '#modal', toggle: 'modal' }
+%ul
+  - @forms.each do |form|
+    %li
+      = form.name
+      = link_to 'edit', edit_form_path(form)

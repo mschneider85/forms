@@ -1,0 +1,61 @@
+@mixin dotted-outline {
+  outline: 1px dotted #666;
+}
+
+$default-background: #eee;
+$active-background: #e5e5e5;
+$placeholder-color: #fff8c1;
+
+.forms:not(.index) {
+  .col input {
+    cursor: default;
+  }
+
+  .col:hover,
+  .draggable-helper,
+  .row.ui-sortable.ui-sortable-helper {
+    background: $active-background;
+    @include dotted-outline;
+  }
+
+  .sortable-placeholder {
+    background: $placeholder-color;
+    height: 6em;
+    @include dotted-outline;
+  }
+
+  #form .row {
+    min-height: 2em;
+
+    &:last-child {
+      min-height: 6em;
+    }
+
+    &:hover:not(:first-child):not(:last-child) {
+      background: $default-background;
+      @include dotted-outline;
+
+      .row-handle {
+        display: inline-block;
+      }
+    }
+
+    span.row-handle {
+      content: '....';
+      width: 2em;
+      display: none;
+      overflow: hidden;
+      line-height: 5px;
+      cursor: move;
+      vertical-align: middle;
+      font-size: 12px;
+      font-family: sans-serif;
+      letter-spacing: 2px;
+      text-shadow: 0px 0 1px #000;
+      margin-left: -2em;
+    }
+    span.row-handle::after {
+      content: '.. .. .. ..';
+    }
+  }
+}

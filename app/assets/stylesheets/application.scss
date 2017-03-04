@@ -1,0 +1,15 @@
+@import 'bootstrap';
+@import 'jquery-ui/sortable';
+@import 'rails_bootstrap_forms';
+@import 'font-awesome';
+@import 'forms';
+
+.bootstrap-vertical-nav {
+  background: #fff8c1;
+  min-height: 100%;
+  padding-top: 50px;
+}
+
+button {
+  cursor: pointer;
+}
