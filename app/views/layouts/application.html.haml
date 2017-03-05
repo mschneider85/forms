@@ -10,6 +10,7 @@
   %body{class: "#{controller_name} #{action_name}"}
     = render 'layouts/nav'
     .container
+      = flash_messages
       = yield
     #modal.modal.fade{ role: 'dialog', tabindex: '-1' }
       .modal-dialog{ role: 'document' }

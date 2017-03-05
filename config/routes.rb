@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-  get 'users/index'
+  post 'logins/create'
+  get 'sessions/create', :login
+  delete 'sessions/destroy', :logout
 
-  get 'users/edit'
-
-  get 'users/update'
+  resources :users, only: [:index, :edit, :update]
+  resources :forms, param: :slug, format: :json
 
   get 'sites/home'
-
-  resources :forms, param: :slug, format: :json
 
   root 'sites#home'
 end

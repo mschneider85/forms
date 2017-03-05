@@ -1,0 +1,5 @@
+%h1 Hi from someapp.com
+
+Click on following link to sing-into someapp.com
+%p
+  = link_to 'sign-in', login_url(host: 'localhost:3000', token: @user.login_token)

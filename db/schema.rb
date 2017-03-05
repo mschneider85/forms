@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223222404) do
+ActiveRecord::Schema.define(version: 20170304230817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+  enable_extension "citext"
 
   create_table "forms", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name"
@@ -23,6 +24,16 @@ ActiveRecord::Schema.define(version: 20170223222404) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.index ["slug"], name: "index_forms_on_slug", using: :btree
+  end
+
+  create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.citext   "email",              null: false
+    t.citext   "username"
+    t.string   "login_token"
+    t.datetime "token_generated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
 end

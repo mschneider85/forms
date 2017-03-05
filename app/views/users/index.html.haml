@@ -1,0 +1,17 @@
+%h1 Users
+%table
+  %thead
+    %tr
+      %th Email
+      %th Name
+      %th Actions
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.email
+        %td= user.username
+        %td
+          - if current_user.anonymous?
+            Sign in to edit users
+          - else
+            = link_to 'Edit', edit_user_path(user)

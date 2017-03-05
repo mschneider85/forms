@@ -1,0 +1,8 @@
+%h1 Edit user
+User's email:
+= @user.email
+
+= form_for @user do |f|
+  = f.label :username
+  = f.text_field :username
+  = f.submit 'Save'
