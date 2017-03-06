@@ -1,0 +1,5 @@
+de:
+  pundit:
+   default: 'Du bist dafür nicht authorisiert.'
+   user_policy:
+     index?: 'Du darfst keine Benutzer anzeigen.'

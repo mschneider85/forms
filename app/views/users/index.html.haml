@@ -1,13 +1,15 @@
 %h1 Users
-%table
+%table.table
   %thead
     %tr
+      %th #
       %th Email
       %th Name
       %th Actions
   %tbody
-    - @users.each do |user|
-      %tr
+    - @users.each.with_index(1) do |user, index|
+      %tr{ class: ('table-info' if user == current_user) }
+        %td= index
         %td= user.email
         %td= user.username
         %td

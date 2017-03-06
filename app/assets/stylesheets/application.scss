@@ -3,6 +3,7 @@
 @import 'rails_bootstrap_forms';
 @import 'font-awesome';
 @import 'forms';
+@import 'sticky-footer';
 
 .bootstrap-vertical-nav {
   background: #fff8c1;
@@ -10,6 +11,10 @@
   padding-top: 50px;
 }
 
-button {
+button, input[type='submit'] {
   cursor: pointer;
+}
+
+body > .container {
+  padding: 60px 15px 0;
 }

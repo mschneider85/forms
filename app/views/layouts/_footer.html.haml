@@ -1,0 +1,6 @@
+%footer.footer
+  .container
+    - if Rails.env.development?
+      sign in as:
+      - User.all.each do |user|
+        = link_to "[#{user.role}: #{user.email}]", impersonate_user_path(user), method: :post

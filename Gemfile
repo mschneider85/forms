@@ -38,6 +38,7 @@ gem 'bootstrap_form', github: 'bootstrap-ruby/rails-bootstrap-forms', branch: 'b
 gem 'rails-assets-tether'
 gem 'font-awesome-rails'
 gem 'pry-rails'
+gem 'pundit'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -56,6 +57,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'meta_request'
   gem 'letter_opener'
+  gem 'pretender'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

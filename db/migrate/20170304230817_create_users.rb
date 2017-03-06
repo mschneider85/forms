@@ -5,6 +5,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
     create_table :users, id: :uuid do |t|
       t.citext :email, null: false
       t.citext :username
+      t.integer :role, null: false, default: 0
+
       t.string :login_token
       t.datetime :token_generated_at
 

@@ -4,17 +4,26 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    authorize @users
   end
 
   def edit
+    authorize @user
   end
 
   def update
-    if @user && @user.update(username: params[:user][:username])
+    authorize @user
+    if @user.update(permitted_attributes(@user))
       redirect_to users_path
     else
       render :edit
     end
+  end
+
+  def impersonate
+    user = User.find(params[:id])
+    self.current_user = user
+    redirect_back fallback_location: root_path
   end
 
   private

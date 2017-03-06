@@ -1,4 +1,4 @@
-%nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.sticky-top
+%nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top
   %button.navbar-toggler.navbar-toggler-right{ type: 'button', data: { target: '#navbar', toggle: 'collapse'  } }
     %span.navbar-toggler-icon
   = link_to '#', class: 'navbar-brand' do
@@ -7,14 +7,16 @@
     %ul.navbar-nav.mr-auto
       %li.nav-item{ class: ('active' if controller_name == 'sites') }
         = link_to 'Home', root_path, class: 'nav-link'
-      %li.nav-item{ class: ('active' if controller_name == 'forms') }
-        = link_to 'Forms', forms_path, class: 'nav-link'
-      %li.nav-item{ class: ('active' if controller_name == 'users') }
-        = link_to 'Users', users_path, class: 'nav-link'
+      - if policy(:form).index?
+        %li.nav-item{ class: ('active' if controller_name == 'forms') }
+          = link_to 'Forms', forms_path, class: 'nav-link'
+      - if policy(:user).index?
+        %li.nav-item{ class: ('active' if controller_name == 'users') }
+          = link_to 'Users', users_path, class: 'nav-link'
     - if current_user.anonymous?
       = form_tag logins_create_path, class: 'form-inline my-2 my-lg-0' do
-        = text_field_tag 'email', nil, placeholder: 'E-mail', required: true, class: 'form-control mr-sm-2'
+        = email_field_tag 'email', nil, placeholder: 'E-mail', required: true, class: 'form-control mr-sm-2'
         = button_tag 'Login', class: 'btn btn-outline-success my-2 my-sm-0'
     - else
-      You are logged in as #{current_user.username}
+      .my-2.mr-2.text-success= current_user.email
       = button_to 'Logout', logout_path, method: :delete, class: 'btn btn-outline-secondary my-2 my-sm-0'

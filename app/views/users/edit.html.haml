@@ -1,8 +1,19 @@
 %h1 Edit user
-User's email:
-= @user.email
-
 = form_for @user do |f|
-  = f.label :username
-  = f.text_field :username
-  = f.submit 'Save'
+  .form-group.row
+    = f.label :email, class: 'col-2 col-form-label'
+    .col-10
+      %p.form-control-static= @user.email
+  .form-group.row
+    = f.label :username, class: 'col-2 col-form-label'
+    .col-10
+      = f.text_field :username, class: 'form-control'
+  .form-group.row
+    = f.label :role, class: 'col-2 col-form-label'
+    .col-10
+      - if policy(@user).permitted_attributes.include? :role
+        = f.select :role, User.roles.keys, {}, class: 'form-control'
+      - else
+        %p.form-control-static= @user.role
+  = link_to 'Back', _back_url, class: 'btn btn-outline-secondary'
+  = f.submit 'Save', class: 'btn btn-outline-primary'

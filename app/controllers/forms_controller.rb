@@ -3,6 +3,7 @@ class FormsController < ApplicationController
 
   def index
     @forms = Form.all
+    authorize @forms
   end
 
   def new

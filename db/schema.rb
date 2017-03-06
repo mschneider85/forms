@@ -27,12 +27,13 @@ ActiveRecord::Schema.define(version: 20170304230817) do
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.citext   "email",              null: false
+    t.citext   "email",                          null: false
     t.citext   "username"
+    t.integer  "role",               default: 0, null: false
     t.string   "login_token"
     t.datetime "token_generated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
