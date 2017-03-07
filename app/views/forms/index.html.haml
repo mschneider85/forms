@@ -1,5 +1,8 @@
-%h1 Forms
-= link_to 'new', new_form_path, class: 'btn btn-secondary', remote: true, data: { target: '#modal', toggle: 'modal' }
+.card
+  .card-block
+    %h4.card-title Forms
+    %p.card-text Lege neue Formulare für deine Kampagnen an oder editiere sie.
+    = link_to 'new', new_form_path, class: 'btn btn-outline-primary', remote: true, data: { target: '#modal', toggle: 'modal' }
 %table.table
   %thead
     %tr
@@ -8,9 +11,13 @@
       %th Slug
       %th Actions
   %tbody
-    - @forms.each.with_index(1) do |form, index|
+    - per = params[:per_page].to_i || 10
+    - @forms.each.with_index(@forms.current_page * per - (per - 1)) do |form, index|
       %tr
         %td= index
         %td= form.name
         %td= form.slug
         %td= link_to 'edit', edit_form_path(form)
+.pull-right
+  = paginate @forms
+.clearfix

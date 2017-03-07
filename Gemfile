@@ -39,6 +39,7 @@ gem 'rails-assets-tether'
 gem 'font-awesome-rails'
 gem 'pry-rails'
 gem 'pundit'
+gem 'kaminari'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

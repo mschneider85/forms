@@ -2,8 +2,10 @@
   outline: 1px dotted #666;
 }
 
-$default-background: #eee;
-$active-background: #e5e5e5;
+// $default-background: #eee;
+// $active-background: #e5e5e5;
+$default-background: #fff;
+$active-background: #eee;
 $placeholder-color: #fff8c1;
 
 .forms:not(.index) {
@@ -33,7 +35,7 @@ $placeholder-color: #fff8c1;
 
     &:hover:not(:first-child):not(:last-child) {
       background: $default-background;
-      @include dotted-outline;
+      // @include dotted-outline;
 
       .row-handle {
         display: inline-block;

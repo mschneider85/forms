@@ -2,7 +2,7 @@ class FormsController < ApplicationController
   before_action :load_form, only: [:edit, :update]
 
   def index
-    @forms = Form.all
+    @forms = Form.order(created_at: :desc).page(params[:page]).per(params[:per_page] || 10)
     authorize @forms
   end
 

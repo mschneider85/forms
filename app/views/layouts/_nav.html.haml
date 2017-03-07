@@ -18,5 +18,5 @@
         = email_field_tag 'email', nil, placeholder: 'E-mail', required: true, class: 'form-control mr-sm-2'
         = button_tag 'Login', class: 'btn btn-outline-success my-2 my-sm-0'
     - else
-      .my-2.mr-2.text-success= current_user.email
+      = link_to current_user.email, edit_user_path(current_user), class: 'my-2 mr-2 text-success'
       = button_to 'Logout', logout_path, method: :delete, class: 'btn btn-outline-secondary my-2 my-sm-0'
