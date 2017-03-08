@@ -17,4 +17,5 @@
 //= require tether
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require node-uuid
 //= require_tree .

@@ -1,5 +1,7 @@
 ---
 de:
+  messages:
+    not_found: Nicht gefunden.
   activerecord:
     errors:
       messages:

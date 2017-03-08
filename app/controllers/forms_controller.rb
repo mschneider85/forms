@@ -21,17 +21,22 @@ class FormsController < ApplicationController
   end
 
   def update
-    @form.structure = JSON.parse(form_attributes[:structure])
-    head @form.save ? :ok : :error
+    head @form.update(form_attributes) ? :ok : :error
   end
 
   private
 
   def form_attributes
-    params.require(:form).permit(:name, :slug, :structure)
+    params.require(:form).permit(:name, :slug).tap do |whitelisted|
+      whitelisted[:structure] = JSON.parse(params[:form][:structure].presence || '{}') if params[:form][:structure]
+    end
   end
 
   def load_form
     @form = Form.find_by(slug: params[:slug])
+    unless @form
+      flash[:error] = t('messages.not_found')
+      redirect_to forms_path
+    end
   end
 end

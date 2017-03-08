@@ -74,7 +74,8 @@ do ($ = jQuery, window, document) ->
           if targetHeight > helperHeight
             $(ui.helper.context).height($(event.target).height())
         stop: =>
-          $(@element).find('.col.ui-draggable').removeAttr('style').removeClass().addClass('col')
+          draggable = $(@element).find('.col.ui-draggable')
+          draggable.removeAttr('style').removeClass().addClass('col')
 
           $(@element).find('.row').each ->
             unless $(@).children('.col').length
@@ -101,8 +102,9 @@ do ($ = jQuery, window, document) ->
         when 'click'
           document.execCommand('selectAll', false, null)
         when 'focusout'
-          return if $(e.target).text().length
-          $(e.target).text($(e.target).data('default'))
+          unless $(e.target).text().length
+            $(e.target).text($(e.target).data('default'))
+          @serializeForm(@)
         when 'keypress'
           return unless e.which == 13
           e.preventDefault()
@@ -111,22 +113,29 @@ do ($ = jQuery, window, document) ->
 
     # --- DRAGGABLE HELPER ---
     onToolbarDrag: (e, ui) ->
-      $(ui.helper).addClass('draggable-helper')
+      $(ui.helper).addClass('draggable-helper').attr('data-id', uuid.v4())
 
     # --- SERIALIZE FORM ---
     serializeForm: (e) ->
       $(e.target).blur()
       data = {}
+      rows = []
       $(@element).find('.row:not(:empty)').each (row_index, row) ->
         cols = []
         $(row).find('.col').each (col_index, col) ->
           cols.push(
-            col_index: col_index,
+            id: $(col).attr('data-id'),
+            index: col_index + 1,
             type: type = $(col).find('input, textarea').attr('type'),
             label: $(col).find('label').text().replace(/(\r\n|\n|\r)/gm,''),
             checked: $(col).find('input, textarea').is(':checked') if type == 'checkbox'
           )
-        data[row_index] = cols
+        rows.push(
+          id: row_index + 1,
+          columns: cols
+        )
+
+      data['rows'] = rows
       $(@element).trigger 'serialized', JSON.stringify(data)
 
     # -- PERSISTENCE --
@@ -137,11 +146,8 @@ do ($ = jQuery, window, document) ->
         $.ajax(
           type: @settings.method
           url: @settings.url
-          data:
-            form:
-              structure:
-                data
-          )
+          data: form: structure: data
+        )
 
   $.fn[pluginName] = (options) ->
     @each ->

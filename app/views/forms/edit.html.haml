@@ -20,10 +20,10 @@
         %span.custom-control-description{ contenteditable: true, data: { default: 'Checkbox' } } Checkbox
 #form{ data: { slug: @form.slug } }
   .row
-  - @form.structure.sort_by(&:first).each do |row, cols|
+  - @form.rows.each do |row|
     .row
-      - cols.sort_by{ |col| col[:col_index] }.each do |col|
-        .col
+      - row[:columns].each do |col|
+        .col{ data: { id: col[:id] } }
           - case col[:type]
           - when 'text'
             .form-group
