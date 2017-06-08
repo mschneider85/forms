@@ -7,16 +7,19 @@
     %ul.navbar-nav.mr-auto
       %li.nav-item{ class: ('active' if controller_name == 'sites') }
         = link_to 'Home', root_path, class: 'nav-link'
+      - if policy(:campaign).index?
+        %li.nav-item{ class: ('active' if controller_name == 'campaigns') }
+          = link_to Campaign.model_name.human(count: 2), campaigns_path, class: 'nav-link'
       - if policy(:form).index?
         %li.nav-item{ class: ('active' if controller_name == 'forms') }
-          = link_to 'Forms', forms_path, class: 'nav-link'
+          = link_to Form.model_name.human(count: 2), forms_path, class: 'nav-link'
       - if policy(:user).index?
         %li.nav-item{ class: ('active' if controller_name == 'users') }
-          = link_to 'Users', users_path, class: 'nav-link'
+          = link_to User.model_name.human(count: 2), users_path, class: 'nav-link'
     - if current_user.anonymous?
       = form_tag logins_create_path, class: 'form-inline my-2 my-lg-0' do
         = email_field_tag 'email', nil, placeholder: 'E-mail', required: true, class: 'form-control mr-sm-2'
         = button_tag 'Login', class: 'btn btn-outline-success my-2 my-sm-0'
     - else
-      = link_to current_user.email, edit_user_path(current_user), class: 'my-2 mr-2 text-success'
+      = link_to current_user.email, edit_user_path(current_user), class: 'my-2 mr-2 text-success hidden-md-down'
       = button_to 'Logout', logout_path, method: :delete, class: 'btn btn-outline-secondary my-2 my-sm-0'

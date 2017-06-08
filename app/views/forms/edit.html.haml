@@ -1,15 +1,23 @@
 #toolbar
+  // Headline
+  .row
+    .col
+      %h1{ type: 'headline', data: { default: 'headline' } }
+        %label Headline
+      = render 'edit_element'
   // Text Input
   .row
     .col
       .form-group
         %label{ contenteditable: true, data: { default: 'Text Input' } } Text input
+        = render 'edit_element'
         %input.form-control{ type: 'text' }
   // Textarea
   .row
     .col
       .form-group
         %label{ contenteditable: true, data: { default: 'Textarea' } } Textarea
+        = render 'edit_element'
         %textarea.form-control{ type: 'textarea', rows: '3' }
   // Single Checkbox
   .row
@@ -18,24 +26,31 @@
         %input.custom-control-input{ type: 'checkbox' }
         %span.custom-control-indicator
         %span.custom-control-description{ contenteditable: true, data: { default: 'Checkbox' } } Checkbox
-#form{ data: { slug: @form.slug } }
-  .row
-  - @form.rows.each do |row|
+      = render 'edit_element'
+
+.form-wrapper
+  #form.container{ data: { slug: @form.slug } }
     .row
-      - row[:columns].each do |col|
-        .col{ data: { id: col[:id] } }
-          - case col[:type]
-          - when 'text'
-            .form-group
-              %label{ contenteditable: true, data: { default: 'Text Input' } }= col[:label]
-              %input.form-control{ type: 'text' }
-          - when 'textarea'
-            .form-group
-              %label{ contenteditable: true, data: { default: 'Textarea' } }= col[:label]
-              %textarea.form-control{ type: 'textarea', rows: '3' }
-          - when 'checkbox'
-            %label.custom-control.custom-checkbox
-              %input.custom-control-input{ type: 'checkbox', checked: col[:checked] }
-              %span.custom-control-indicator
-              %span.custom-control-description{ contenteditable: true, data: { default: 'Checkbox' } }= col[:label]
-  .row
+    - @form.rows.each do |row|
+      .row
+        - row[:columns].each do |col|
+          .col{ data: { id: col[:id], required: col[:required].to_s } }
+            = render 'col', col: col
+    .row
+
+:coffee
+  $('.element-link').click (e) ->
+    e.preventDefault()
+    @col = $(e.target.closest('.col'))
+    $.ajax
+      url: '/form_elements/' + @col.data('id') + '/edit'
+      data:
+        field_setting_form:
+          label: @col.find('label').text().replace(/(\r\n|\n|\r)/gm, '')
+          placeholder: @col.find('input, textarea').attr('placeholder')
+          default_value: @col.find('input, textarea').val()
+          type: @col.find('input, textarea, h1').attr('type')
+          checked: @col.find('input').is(':checked')
+          required: @col.data('required')
+          validation:
+            presence: @col.data('validation-presence')

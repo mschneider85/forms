@@ -10,19 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304230817) do
+ActiveRecord::Schema.define(version: 20170310202609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "citext"
 
+  create_table "campaigns", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "name"
+    t.citext   "path"
+    t.integer  "status",     default: 0,  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.jsonb    "settings",   default: {}, null: false
+    t.index ["settings"], name: "index_campaigns_on_settings", using: :gin
+  end
+
+  create_table "campaigns_users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "campaign_id",             null: false
+    t.uuid     "user_id",                 null: false
+    t.integer  "role",        default: 0, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["campaign_id"], name: "index_campaigns_users_on_campaign_id", using: :btree
+    t.index ["user_id"], name: "index_campaigns_users_on_user_id", using: :btree
+  end
+
   create_table "forms", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
-    t.jsonb    "structure",  default: "{}", null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.jsonb    "structure",  default: {}, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["slug"], name: "index_forms_on_slug", using: :btree
   end
 

@@ -4,3 +4,9 @@ de:
       form:
         one: Formular
         other: Formulare
+      campaign:
+        one: Kampagne
+        other: Kampagnen
+      user:
+        one: Benutzer
+        other: Benutzer

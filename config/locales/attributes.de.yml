@@ -1,0 +1,12 @@
+de:
+  activerecord:
+    attributes:
+      form:
+        name: Name
+        slug: Pfad
+      campaign:
+        name: Name
+        path: Pfad
+        locale: Sprache
+        starting_at: Beginn
+        ending_at: Ende

@@ -1,15 +1,15 @@
 .card
   .card-block
-    %h4.card-title Forms
+    %h4.card-title= Form.model_name.human(count: 2)
     %p.card-text Lege neue Formulare für deine Kampagnen an oder editiere sie.
-    = link_to 'new', new_form_path, class: 'btn btn-outline-primary', remote: true, data: { target: '#modal', toggle: 'modal' }
+    = link_to t('actions.new'), new_form_path, class: 'btn btn-outline-primary', remote: true, data: { target: '#modal', toggle: 'modal' }
 %table.table
   %thead
     %tr
       %th #
-      %th Name
-      %th Slug
-      %th Actions
+      %th= Form.human_attribute_name(:name)
+      %th= Form.human_attribute_name(:slug)
+      %th= t('attributes.actions')
   %tbody
     - per = params[:per_page].to_i || 10
     - @forms.each.with_index(@forms.current_page * per - (per - 1)) do |form, index|
@@ -17,7 +17,7 @@
         %td= index
         %td= form.name
         %td= form.slug
-        %td= link_to 'edit', edit_form_path(form)
+        %td= link_to t('actions.edit'), edit_form_path(form), class: 'btn btn-sm btn-outline-primary'
 .pull-right
   = paginate @forms
 .clearfix

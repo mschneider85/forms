@@ -40,6 +40,9 @@ gem 'font-awesome-rails'
 gem 'pry-rails'
 gem 'pundit'
 gem 'kaminari'
+# gem 'hashie'
+gem 'jsonb_accessor', '1.0.0.beta.2'
+gem 'virtus'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -57,8 +60,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'meta_request'
+  gem 'rack-mini-profiler'
   gem 'letter_opener'
-  gem 'meta_request'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

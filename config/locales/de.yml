@@ -2,9 +2,19 @@
 de:
   messages:
     not_found: Nicht gefunden.
+  actions:
+    new: neu
+    edit: editieren
+    delete: löschen
+  languages:
+    de: Deutsch
+    en: Englisch
+  attributes:
+    actions: Aktionen
   activerecord:
     errors:
       messages:
+        must_be_after_start_date: Muss nach dem Startdatum sein.
         record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
         restrict_dependent_destroy:
           has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz

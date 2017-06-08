@@ -1,0 +1,25 @@
+.card
+  .card-block
+    %h4.card-title= Campaign.model_name.human(count: 2)
+    %p.card-text Lege neue Kampagnen an oder editiere sie.
+    = link_to t('actions.new'), new_campaign_path, class: 'btn btn-outline-primary'
+%table.table
+  %thead
+    %tr
+      %th #
+      %th= Campaign.human_attribute_name(:name)
+      %th= Campaign.human_attribute_name(:path)
+      %th= t('attributes.actions')
+  %tbody
+    - per = params[:per_page].to_i || 10
+    - @campaigns.each.with_index(@campaigns.current_page * per - (per - 1)) do |campaign, index|
+      %tr
+        %td= index
+        %td= campaign.name
+        %td= campaign.path
+        %td
+          = link_to t('actions.edit'), edit_campaign_path(campaign), class: 'btn btn-sm btn-outline-primary'
+          = link_to t('actions.delete'), campaign_path(campaign), method: :delete, class: 'btn btn-sm btn-outline-danger'
+.pull-right
+  = paginate @campaigns
+.clearfix

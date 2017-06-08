@@ -1,3 +1,4 @@
 <% unless @form.valid? %>
+  <% @form.generate_slug %>
   $("#modal .modal-content").html("<%= j render 'form' %>");
 <% end %>

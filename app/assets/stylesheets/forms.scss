@@ -1,9 +1,12 @@
+@import 'bootstrap';
+@import 'jquery-ui/sortable';
+@import 'rails_bootstrap_forms';
+@import 'font-awesome';
+
 @mixin dotted-outline {
   outline: 1px dotted #666;
 }
 
-// $default-background: #eee;
-// $active-background: #e5e5e5;
 $default-background: #fff;
 $active-background: #eee;
 $placeholder-color: #fff8c1;
@@ -17,6 +20,7 @@ $placeholder-color: #fff8c1;
   .draggable-helper,
   .row.ui-sortable.ui-sortable-helper {
     background: $active-background;
+    z-index: 2;
     @include dotted-outline;
   }
 
@@ -59,5 +63,63 @@ $placeholder-color: #fff8c1;
     span.row-handle::after {
       content: '.. .. .. ..';
     }
+  }
+}
+
+#toolbar {
+  background: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: 100%;
+  left: 0;
+  padding: 70px 15px 0;
+  position: fixed;
+  width: 14em;
+  z-index: 1;
+
+  .col,
+  label,
+  input,
+  textarea {
+    cursor: move;
+  }
+
+  .custom-checkbox {
+    pointer-events: none;
+  }
+}
+
+.form-wrapper {
+  margin-left: 14em;
+  padding: 70px 2em 0 3em;
+}
+
+h1,
+h2,
+h3 {
+  display: inline-block;
+}
+
+//--- Edit icon
+#toolbar,
+#form {
+  .edit-element {
+    display: none;
+    position: absolute;
+    right: 1em;
+    top: .1em;
+  }
+}
+
+#form .col:hover .edit-element {
+  display: initial;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.custom-checkbox {
+  .custom-control-description {
+    cursor: text;
   }
 }

@@ -31,7 +31,7 @@ do ($ = jQuery, window, document) ->
 
       # --- INIT DRAGGABLE TOOLBAR ---
       $("#{@settings.toolbar} .col").draggable
-        appendTo: 'body'
+        appendTo: '#form'
         cancel: ''
         connectToSortable: '.row'
         cursorAt: { left: 20, top: 20 }
@@ -55,9 +55,10 @@ do ($ = jQuery, window, document) ->
     makeColsSortable: (elements) ->
       elements.sortable
         items: '.col:not(.placeholder)'
-        cancel: 'label'
+        cancel: '[contenteditable=true]'
         connectWith: '.row'
         cursorAt: { left: 20, top: 20 }
+        distance: 10
         placeholder: 'col sortable-placeholder'
         scroll: false
         tolerance: 'pointer'
@@ -126,8 +127,11 @@ do ($ = jQuery, window, document) ->
           cols.push(
             id: $(col).attr('data-id'),
             index: col_index + 1,
-            type: type = $(col).find('input, textarea').attr('type'),
+            type: type = $(col).find('input, textarea, h1').attr('type'),
             label: $(col).find('label').text().replace(/(\r\n|\n|\r)/gm,''),
+            placeholder: $(col).find('input, textarea').attr('placeholder'),
+            default_value: $(col).find('input, textarea').val(),
+            required: $(col).data('required'),
             checked: $(col).find('input, textarea').is(':checked') if type == 'checkbox'
           )
         rows.push(

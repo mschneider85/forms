@@ -18,6 +18,7 @@ class FormsController < ApplicationController
   end
 
   def edit
+    render layout: 'form_editor'
   end
 
   def update

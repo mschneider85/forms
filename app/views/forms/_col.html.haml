@@ -1,0 +1,25 @@
+- case col[:type]
+- when 'text'
+  .form-group
+    %label{ contenteditable: true, data: { default: 'Text Input' } }= col[:label]
+    = required_asterisk(col[:required])
+    = render '/forms/edit_element'
+    %input.form-control{ type: 'text', placeholder: col[:placeholder], value: col[:default_value] }
+- when 'textarea'
+  .form-group
+    %label{ contenteditable: true, data: { default: 'Textarea' } }= col[:label]
+    = required_asterisk(col[:required])
+    = render '/forms/edit_element'
+    %textarea.form-control{ type: 'textarea', rows: '3', placeholder: col[:placeholder] }
+      = col[:default_value]
+- when 'checkbox'
+  = required_asterisk(col[:required])
+  %label.custom-control.custom-checkbox
+    %input.custom-control-input{ type: 'checkbox', checked: col[:checked] }
+    %span.custom-control-indicator
+    %span.custom-control-description{ contenteditable: true, data: { default: 'Checkbox' } }= col[:label]
+  = render '/forms/edit_element'
+- when 'headline'
+  %h1{ type: 'headline', data: { default: 'headline' } }
+    %label= col[:label]
+  = render '/forms/edit_element'

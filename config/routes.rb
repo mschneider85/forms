@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update] do
     post :impersonate, on: :member
   end
+  resources :campaigns
   resources :forms, param: :slug, format: :json
+  resources :form_elements, only: [:edit, :update]
 
   get 'sites/home'
 

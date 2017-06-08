@@ -1,1 +1,1 @@
-json.array! @forms.pluck(:slug)
+json.array! Form.pluck(:slug)

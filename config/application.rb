@@ -14,6 +14,8 @@ module Forms
     config.time_zone = 'Berlin'
     config.i18n.default_locale = :de
 
+    config.eager_load_paths << "#{Rails.root}/lib"
+
     config.generators do |g|
       g.template_engine nil
       g.test_framework  nil

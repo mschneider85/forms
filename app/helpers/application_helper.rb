@@ -12,4 +12,8 @@ module ApplicationHelper
     end
     nil
   end
+
+  def required_asterisk(required)
+    content_tag(:span, '*') if required.in?([true, 'true'])
+  end
 end

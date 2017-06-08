@@ -1,0 +1,25 @@
+= bootstrap_form_for @campaign do |f|
+  = f.text_field :name, data: { slug: 'campaign_path' }
+  = f.text_field :path
+  = f.select :locale, Campaign.locales
+  .row
+    .col
+      = f.label :starting_at
+  .row
+    .col
+      = f.date_field :starting_at, hide_label: true, name: 'campaign[starting_at_date]', data: { change: 'starting_at' }
+    .col
+      = f.time_field :starting_at, hide_label: true, name: 'campaign[starting_at_time]', value: @campaign.starting_at&.strftime('%H:%M'), data: { change: 'starting_at' }
+  = f.hidden_field :starting_at
+  .row
+    .col
+      = f.label :ending_at
+  .row
+    .col
+      = f.date_field :ending_at, hide_label: true, name: 'campaign[ending_at_date]', data: { change: 'ending_at' }
+    .col
+      = f.time_field :ending_at, hide_label: true, name: 'campaign[ending_at_time]', value: @campaign.starting_at&.strftime('%H:%M'), data: { change: 'ending_at' }
+  = f.hidden_field :ending_at
+
+  = link_to t('helpers.cancel'), campaigns_path, class: 'btn btn-secondary'
+  = f.submit class: 'btn btn-primary'

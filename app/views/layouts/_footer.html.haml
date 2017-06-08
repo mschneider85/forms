@@ -1,6 +1,9 @@
 %footer.footer
   .container
     - if Rails.env.development?
-      sign in as:
-      - User.all.each do |user|
-        = link_to "[#{user.role}: #{user.email}]", impersonate_user_path(user), method: :post
+      %label
+        sign in as:
+      = select :user,
+        :id, User.all.pluck(:email, :id),
+        { include_blank: true, selected: current_user.id },
+        onchange: "$.post('/users/' + $(this).val() + '/impersonate');"

@@ -1,0 +1,20 @@
+.modal-content#form-elements
+  .modal-header
+    %h5.modal-title= field_setting_form.label
+    %button.close{ type: 'button', data: { dismiss: 'modal' } }
+      %span ×
+  = bootstrap_form_for field_setting_form, url: form_element_path(field_setting_form.id), method: :patch, remote: true do |f|
+    .modal-body
+      = f.hidden_field :type
+      = f.text_field :label
+      - unless f.object.type == 'headline'
+        = f.check_box :required
+      - if f.object.type.in? %w(text textarea)
+        = f.text_field :placeholder
+        = f.text_field :default_value
+      - if f.object.type == 'checkbox'
+        %fieldset.form-group
+          %label Checkbox options
+          = f.check_box :checked
+    .modal-footer
+      = f.submit 'save'
